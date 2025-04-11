@@ -22,11 +22,21 @@ enum Commands {
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
-
-    match &cli.command {
+    let result = match &cli.command {
         Commands::ListEnvs {} => list_environments(),
         Commands::ListPackages { env_name } => list_packages(env_name),
+    };
+
+    if let Err(err) = &result {
+        eprintln!("Error: {}", err);
+
+        if let Err(_) = Command::new("conda").arg("--version").output() {
+            eprintln!("\nIt appears conda is not installed or in your PATH.");
+            eprintln!("Please install conda or ensure it's properly configured.");
+        }
     }
+
+    result
 }
 
 fn list_environments() -> Result<()> {
@@ -63,5 +73,42 @@ fn list_environments() -> Result<()> {
 
 fn list_packages(env_name: &str) -> Result<()> {
     println!("Listing packages for environment: {}", env_name);
+
+    let output = Command::new("conda")
+        .args(["list", "-n", env_name, "--json"])
+        .output()
+        .context("Failed to execute conda command")?;
+
+    if !output.status.success() {
+        let error = String::from_utf8_lossy(&output.stderr);
+        return Err(anyhow::anyhow!("Conda command failed: {}", error));
+    }
+
+    let packages: Vec<Value> =
+        serde_json::from_slice(&output.stdout).context("Failed to parse JSON output from conda")?;
+
+    println!("\nPackages in '{}' environment:", env_name);
+    println!("-------------------------------");
+    println!("{:<20} {:<15} {:<10}", "Name", "Version", "Channel");
+    println!("{:<20} {:<15} {:<10}", "----", "-------", "-------");
+
+    for package in &packages {
+        let name = package
+            .get("name")
+            .and_then(Value::as_str)
+            .unwrap_or("Unknown");
+        let version = package
+            .get("version")
+            .and_then(Value::as_str)
+            .unwrap_or("Unknown");
+        let channel = package
+            .get("channel")
+            .and_then(Value::as_str)
+            .unwrap_or("Unknown");
+
+        println!("{:<20} {:<15} {:<10}", name, version, channel);
+    }
+    println!("\nTotal packages: {}", packages.len());
+
     Ok(())
 }
