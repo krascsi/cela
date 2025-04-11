@@ -1,11 +1,5 @@
 # CELA (Conda Environment Lister & Analyzer)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Rust](https://img.shields.io/badge/Rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
-[![Conda](https://img.shields.io/badge/Conda-Compatible-green.svg)](https://docs.conda.io/)
-
-A lightweight, high-performance CLI tool written in Rust for inspecting and analyzing Conda environments.
-
 ![CELA Demo](assets/cela-demo.gif)
 
 ## Features
@@ -130,8 +124,8 @@ The project showcases:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Author
 
-Created by [Your Name] as a demonstration project for Prefix.dev.
+Created by [Bence Krascsenits] as a demonstration project for Prefix.dev.

@@ -1,7 +1,7 @@
-warning|:|src/main.rs|:|33|:|33|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
-[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:33:16[0m
+warning|:|src/main.rs|:|34|:|34|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:34:16[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m33[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
+[0m[1m[38;5;12m34[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
 [0m   [0m[0m[1m[38;5;12m|[0m[0m         [0m[0m[1m[38;5;12m-------[0m[0m[1m[33m^^^^^^[0m[0m[1m[38;5;12m--------------------------------------------------[0m[0m [0m[0m[1m[38;5;12mhelp: try: `if Command::new("conda").arg("--version").output().is_err()`[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: this will change drop order of the result, as well as all temporaries[0m
@@ -10,11 +10,11 @@ warning|:|src/main.rs|:|33|:|33|:|16|:|22|:|redundant pattern matching, consider
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(clippy::redundant_pattern_matching)]` on by default[0m
 
 |:|none
-help|:|src/main.rs|:|33|:|33|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
-warning|:|src/main.rs|:|33|:|33|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
-[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:33:16[0m
+help|:|src/main.rs|:|34|:|34|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
+warning|:|src/main.rs|:|34|:|34|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:34:16[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m33[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
+[0m[1m[38;5;12m34[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
 [0m   [0m[0m[1m[38;5;12m|[0m[0m         [0m[0m[1m[38;5;12m-------[0m[0m[1m[33m^^^^^^[0m[0m[1m[38;5;12m--------------------------------------------------[0m[0m [0m[0m[1m[38;5;12mhelp: try: `if Command::new("conda").arg("--version").output().is_err()`[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: this will change drop order of the result, as well as all temporaries[0m
@@ -23,4 +23,4 @@ warning|:|src/main.rs|:|33|:|33|:|16|:|22|:|redundant pattern matching, consider
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(clippy::redundant_pattern_matching)]` on by default[0m
 
 |:|none
-help|:|src/main.rs|:|33|:|33|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
+help|:|src/main.rs|:|34|:|34|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()

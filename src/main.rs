@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
 use serde_json::Value;
+use std::path::Path;
 use std::process::Command;
 
 #[derive(Parser)]
@@ -60,7 +61,11 @@ fn list_environments() -> Result<()> {
 
             for (i, env) in envs_array.iter().enumerate() {
                 if let Some(path) = env.as_str() {
-                    let env_name = path.split('/').last().unwrap_or(path);
+                    let path_obj = Path::new(path);
+                    let env_name = path_obj
+                        .file_name()
+                        .and_then(|name| name.to_str())
+                        .unwrap_or(path);
                     println!("{}. {} ({})", i + 1, env_name, path);
                 }
             }
