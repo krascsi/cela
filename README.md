@@ -128,4 +128,4 @@ This project is licensed under the MIT License.
 
 ## Author
 
-Created by [Bence Krascsenits] as a demonstration project for Prefix.dev.
+Created by Bence Krascsenits as a demonstration project for Prefix.dev.
