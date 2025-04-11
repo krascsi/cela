@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
-use prettytable::{Table, cell, row};
+use prettytable::{Table, row};
+use serde::Deserialize;
 use serde_json::Value;
 use std::path::Path;
 use std::process::Command;
@@ -10,6 +11,18 @@ use std::process::Command;
 struct Cli {
     #[command(subcommand)]
     command: Commands,
+}
+
+#[derive(Deserialize, Debug)]
+struct CondaEnvironments {
+    envs: Vec<String>,
+}
+
+#[derive(Deserialize, Debug)]
+struct CondaPackage {
+    name: String,
+    version: String,
+    channel: String,
 }
 
 #[derive(Subcommand)]
@@ -52,28 +65,23 @@ fn list_environments() -> Result<()> {
         let error = String::from_utf8_lossy(&output.stderr);
         return Err(anyhow::anyhow!("Conda command failed: {}", error));
     }
-    let json: Value =
+    let environments: CondaEnvironments =
         serde_json::from_slice(&output.stdout).context("Failed to parse JSON output from conda")?;
 
-    if let Some(envs) = json.get("envs") {
-        if let Some(envs_array) = envs.as_array() {
-            println!("\nAvailable Conda environments:");
-            println!("-------------------------------");
+    println!("\nAvailable Conda environments:");
+    println!("-------------------------------");
 
-            for (i, env) in envs_array.iter().enumerate() {
-                if let Some(path) = env.as_str() {
-                    let path_obj = Path::new(path);
-                    let env_name = path_obj
-                        .file_name()
-                        .and_then(|name| name.to_str())
-                        .unwrap_or(path);
-                    println!("{}. {} ({})", i + 1, env_name, path);
-                }
-            }
-
-            println!("\nTotal environments: {}", envs_array.len());
-        }
+    for (i, path) in environments.envs.iter().enumerate() {
+        let path_obj = Path::new(path);
+        let env_name = path_obj
+            .file_name()
+            .and_then(|name| name.to_str())
+            .unwrap_or(path);
+        println!("{}. {} ({})", i + 1, env_name, path);
     }
+
+    println!("\nTotal environments: {}", environments.envs.len());
+
     Ok(())
 }
 
@@ -90,32 +98,14 @@ fn list_packages(env_name: &str) -> Result<()> {
         return Err(anyhow::anyhow!("Conda command failed: {}", error));
     }
 
-    let packages: Vec<Value> =
+    let packages: Vec<CondaPackage> =
         serde_json::from_slice(&output.stdout).context("Failed to parse JSON output from conda")?;
 
     let mut table = Table::new();
     table.add_row(row!["Name", "Version", "Channel"]);
 
-    //println!("\nPackages in '{}' environment:", env_name);
-    //println!("-------------------------------");
-    //println!("{:<20} {:<15} {:<10}", "Name", "Version", "Channel");
-    //println!("{:<20} {:<15} {:<10}", "----", "-------", "-------");
-
     for package in &packages {
-        table.add_row(row![
-            package
-                .get("name")
-                .and_then(Value::as_str)
-                .unwrap_or("Unknown"),
-            package
-                .get("version")
-                .and_then(Value::as_str)
-                .unwrap_or("Unknown"),
-            package
-                .get("channel")
-                .and_then(Value::as_str)
-                .unwrap_or("Unknown"),
-        ]);
+        table.add_row(row![&package.name, &package.version, &package.channel]);
     }
     table.printstd();
     println!("\nTotal packages: {}", packages.len());

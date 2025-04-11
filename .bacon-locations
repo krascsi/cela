@@ -1,17 +1,27 @@
-warning|:|src/main.rs|:|3|:|3|:|26|:|30|:|unused import: `cell`|:|[0m[1m[33mwarning[0m[0m[1m: unused import: `cell`[0m
-[0m [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:3:26[0m
+warning|:|src/main.rs|:|5|:|5|:|5|:|22|:|unused import: `serde_json::Value`|:|[0m[1m[33mwarning[0m[0m[1m: unused import: `serde_json::Value`[0m
+[0m [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:5:5[0m
 [0m  [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m3[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0muse prettytable::{Table, cell, row};[0m
-[0m  [0m[0m[1m[38;5;12m|[0m[0m                          [0m[0m[1m[33m^^^^[0m
+[0m[1m[38;5;12m5[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0muse serde_json::Value;[0m
+[0m  [0m[0m[1m[38;5;12m|[0m[0m     [0m[0m[1m[33m^^^^^^^^^^^^^^^^^[0m
 [0m  [0m[0m[1m[38;5;12m|[0m
 [0m  [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(unused_imports)]` on by default[0m
 
 |:|none
-help|:|src/main.rs|:|3|:|3|:|24|:|30|:|remove the unused import|:|none|:|
-warning|:|src/main.rs|:|35|:|35|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
-[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:35:16[0m
+help|:|src/main.rs|:|5|:|6|:|1|:|1|:|remove the whole `use` item|:|none|:|
+warning|:|src/main.rs|:|5|:|5|:|5|:|22|:|unused import: `serde_json::Value`|:|[0m[1m[33mwarning[0m[0m[1m: unused import: `serde_json::Value`[0m
+[0m [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:5:5[0m
+[0m  [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m5[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0muse serde_json::Value;[0m
+[0m  [0m[0m[1m[38;5;12m|[0m[0m     [0m[0m[1m[33m^^^^^^^^^^^^^^^^^[0m
+[0m  [0m[0m[1m[38;5;12m|[0m
+[0m  [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(unused_imports)]` on by default[0m
+
+|:|none
+help|:|src/main.rs|:|5|:|6|:|1|:|1|:|remove the whole `use` item|:|none|:|
+warning|:|src/main.rs|:|48|:|48|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:48:16[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m35[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
+[0m[1m[38;5;12m48[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
 [0m   [0m[0m[1m[38;5;12m|[0m[0m         [0m[0m[1m[38;5;12m-------[0m[0m[1m[33m^^^^^^[0m[0m[1m[38;5;12m--------------------------------------------------[0m[0m [0m[0m[1m[38;5;12mhelp: try: `if Command::new("conda").arg("--version").output().is_err()`[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: this will change drop order of the result, as well as all temporaries[0m
@@ -20,21 +30,11 @@ warning|:|src/main.rs|:|35|:|35|:|16|:|22|:|redundant pattern matching, consider
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(clippy::redundant_pattern_matching)]` on by default[0m
 
 |:|none
-help|:|src/main.rs|:|35|:|35|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
-warning|:|src/main.rs|:|3|:|3|:|26|:|30|:|unused import: `cell`|:|[0m[1m[33mwarning[0m[0m[1m: unused import: `cell`[0m
-[0m [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:3:26[0m
-[0m  [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m3[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0muse prettytable::{Table, cell, row};[0m
-[0m  [0m[0m[1m[38;5;12m|[0m[0m                          [0m[0m[1m[33m^^^^[0m
-[0m  [0m[0m[1m[38;5;12m|[0m
-[0m  [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(unused_imports)]` on by default[0m
-
-|:|none
-help|:|src/main.rs|:|3|:|3|:|24|:|30|:|remove the unused import|:|none|:|
-warning|:|src/main.rs|:|35|:|35|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
-[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:35:16[0m
+help|:|src/main.rs|:|48|:|48|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
+warning|:|src/main.rs|:|48|:|48|:|16|:|22|:|redundant pattern matching, consider using `is_err()`|:|[0m[1m[33mwarning[0m[0m[1m: redundant pattern matching, consider using `is_err()`[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/main.rs:48:16[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m35[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
+[0m[1m[38;5;12m48[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m        if let Err(_) = Command::new("conda").arg("--version").output() {[0m
 [0m   [0m[0m[1m[38;5;12m|[0m[0m         [0m[0m[1m[38;5;12m-------[0m[0m[1m[33m^^^^^^[0m[0m[1m[38;5;12m--------------------------------------------------[0m[0m [0m[0m[1m[38;5;12mhelp: try: `if Command::new("conda").arg("--version").output().is_err()`[0m
 [0m   [0m[0m[1m[38;5;12m|[0m
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: this will change drop order of the result, as well as all temporaries[0m
@@ -43,4 +43,4 @@ warning|:|src/main.rs|:|35|:|35|:|16|:|22|:|redundant pattern matching, consider
 [0m   [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(clippy::redundant_pattern_matching)]` on by default[0m
 
 |:|none
-help|:|src/main.rs|:|35|:|35|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
+help|:|src/main.rs|:|48|:|48|:|9|:|72|:|try|:|none|:|if Command::new("conda").arg("--version").output().is_err()
