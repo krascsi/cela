@@ -1,5 +1,6 @@
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
+use prettytable::{Table, cell, row};
 use serde_json::Value;
 use std::path::Path;
 use std::process::Command;
@@ -92,27 +93,31 @@ fn list_packages(env_name: &str) -> Result<()> {
     let packages: Vec<Value> =
         serde_json::from_slice(&output.stdout).context("Failed to parse JSON output from conda")?;
 
-    println!("\nPackages in '{}' environment:", env_name);
-    println!("-------------------------------");
-    println!("{:<20} {:<15} {:<10}", "Name", "Version", "Channel");
-    println!("{:<20} {:<15} {:<10}", "----", "-------", "-------");
+    let mut table = Table::new();
+    table.add_row(row!["Name", "Version", "Channel"]);
+
+    //println!("\nPackages in '{}' environment:", env_name);
+    //println!("-------------------------------");
+    //println!("{:<20} {:<15} {:<10}", "Name", "Version", "Channel");
+    //println!("{:<20} {:<15} {:<10}", "----", "-------", "-------");
 
     for package in &packages {
-        let name = package
-            .get("name")
-            .and_then(Value::as_str)
-            .unwrap_or("Unknown");
-        let version = package
-            .get("version")
-            .and_then(Value::as_str)
-            .unwrap_or("Unknown");
-        let channel = package
-            .get("channel")
-            .and_then(Value::as_str)
-            .unwrap_or("Unknown");
-
-        println!("{:<20} {:<15} {:<10}", name, version, channel);
+        table.add_row(row![
+            package
+                .get("name")
+                .and_then(Value::as_str)
+                .unwrap_or("Unknown"),
+            package
+                .get("version")
+                .and_then(Value::as_str)
+                .unwrap_or("Unknown"),
+            package
+                .get("channel")
+                .and_then(Value::as_str)
+                .unwrap_or("Unknown"),
+        ]);
     }
+    table.printstd();
     println!("\nTotal packages: {}", packages.len());
 
     Ok(())
